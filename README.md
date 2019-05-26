@@ -33,7 +33,8 @@ Be aware that the `remove` by sls will fail if the bucket the function uses to s
 
 1. Delete all files in the timestamp bucket
 2. Use `sls remove`
-3. Delete the IAM Stack to remove the role.
+3. Delete the IAM stack to remove the role.
+4. Clean up any buckets created for the IAM stack.
 
 ## Commands
 
