@@ -1,18 +1,17 @@
 Resources:
   LambdaRole:
-  Type: AWS::IAM::Role
-  Properties:
-    AssumeRolePolicyDocument:
-      Statement:
-        - Effect: Allow
-          Principal:
-            Service: [lambda.amazonaws.com]
-          Action: ["sts:AssumeRole"]
-    Path: /
-    Policies:
-      - PolicyName: LoggingAccess
-        PolicyDocument:
-          Statement:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: [lambda.amazonaws.com]
+            Action: ["sts:AssumeRole"]
+      Path: /
+      Policies:
+        - PolicyName: LoggingAccess
+          PolicyDocument:
             Statement:
               - Effect: Allow
                 Resource: "*"
@@ -21,10 +20,9 @@ Resources:
                   - "logs:CreateLogStream"
                   - "logs:PutLogEvents"
                   - "logs:DescribeLogStreams"
-      - PolicyName: S3FullAccessNoDelete
-        #! This is way to broad for production use! Remember this is an example only.
-        PolicyDocument:
-          Statement:
+          #! This is way to broad for production use! Remember this is an example only.
+        - PolicyName: S3FullAccessNoDelete
+          PolicyDocument:
             Statement:
               - Effect: Allow
                 Resource: "*"
@@ -35,7 +33,7 @@ Resources:
 
 Outputs:
   SlsLambdaTestingRole:
-    Description: The name of the ECS cluster
+    Description: The ARN of the role your lambda function will assume.
     Value: !GetAtt "LambdaRole.Arn"
     Export:
       Name: !Join [":", [!Ref "AWS::StackName", "SlsLambdaTestingRole"]]
