@@ -6,6 +6,9 @@ provider:
   stage: ${opt:stage,'dev'}
   region: us-east-1
   role: ${cf:${opt:iam-stack-name}.SlsLambdaTestingRole}
+  environment:
+    STAGE: ${self:provider.stage}
+    BUCKET_PREFIX: ${opt:bucket-prefix}
 
 functions:
   hello:
@@ -13,10 +16,6 @@ functions:
 
     events:
       - schedule: rate(10 minutes)
-
-environment:
-  STAGE: ${self:provider.stage}
-  BUCKETPREFIX: ${opt:bucket-prefix}
 
 resources:
  Resources:

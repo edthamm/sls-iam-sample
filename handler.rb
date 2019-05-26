@@ -1,7 +1,7 @@
 require 'aws-sdk-s3'
 
 s3 = Aws::S3::Resource.new
-bucket = s3.bucket(env.BUCKETPREFIX+'-'+env.STAGE+'-sls-testing-bucket')
+bucket = s3.bucket(ENV['BUCKET_PREFIX']+'-'+ENV['STAGE']+'-sls-testing-bucket')
 
 def hello(event:, context:)
   puts "Event: #{event}"
