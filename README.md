@@ -27,7 +27,15 @@ You will need to pass 2 variables.
 - `bucket-prefix` is part of the bucket name. Choose something unique here ;)
 - `iam-stack-name` must be the name you gave the IAM stack. It is used to find the ARN of the role the lambda will assume.
 
-### Commands
+### Removal
+
+Be aware that the `remove` by sls will fail if the bucket the function uses to store timestamps is not empty.
+
+1. Delete all files in the timestamp bucket
+2. Use `sls remove`
+3. Delete the IAM Stack to remove the role.
+
+## Commands
 
 - Deploying the whole service
 
