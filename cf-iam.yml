@@ -10,17 +10,28 @@ Resources:
           Action: ["sts:AssumeRole"]
     Path: /
     Policies:
-      - PolicyName: logging
+      - PolicyName: LoggingAccess
         PolicyDocument:
           Statement:
-            - Effect: Allow
-              Action:
-                - ""
-                - ""
-                - ""
-                - ""
-                - ""
-              Resource: "*"
+            Statement:
+              - Effect: Allow
+                Resource: "*"
+                Action:
+                  - "logs:CreateLogGroup"
+                  - "logs:CreateLogStream"
+                  - "logs:PutLogEvents"
+                  - "logs:DescribeLogStreams"
+      - PolicyName: S3FullAccessNoDelete
+        #! This is way to broad for production use! Remember this is an example only.
+        PolicyDocument:
+          Statement:
+            Statement:
+              - Effect: Allow
+                Resource: "*"
+                Action:
+                  - "s3:Get*"
+                  - "s3:Put*"
+                  - "s3:List*"
 
 Outputs:
   SlsLambdaTestingRole:
