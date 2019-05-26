@@ -1,0 +1,30 @@
+Resources:
+  LambdaRole:
+  Type: AWS::IAM::Role
+  Properties:
+    AssumeRolePolicyDocument:
+      Statement:
+        - Effect: Allow
+          Principal:
+            Service: [lambda.amazonaws.com]
+          Action: ["sts:AssumeRole"]
+    Path: /
+    Policies:
+      - PolicyName: logging
+        PolicyDocument:
+          Statement:
+            - Effect: Allow
+              Action:
+                - ""
+                - ""
+                - ""
+                - ""
+                - ""
+              Resource: "*"
+
+Outputs:
+  SlsLambdaTestingRole:
+    Description: The name of the ECS cluster
+    Value: !GetAtt "LambdaRole.Arn"
+    Export:
+      Name: !Join [":", [!Ref "AWS::StackName", "SlsLambdaTestingRole"]]

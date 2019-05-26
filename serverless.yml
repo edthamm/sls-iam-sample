@@ -7,10 +7,6 @@ provider:
   region: us-east-1
   role: ${cf:${opt:iam-stack-name}.SlsLambdaTestingRole}
 
-# you can define service wide environment variables here
-#  environment:
-#    variable1: value1
-
 functions:
   hello:
     handler: handler.hello
@@ -18,14 +14,13 @@ functions:
     events:
       - schedule: rate(10 minutes)
 
-# you can add CloudFormation resource templates here
+environment:
+  STAGE: ${self:provider.stage}
+  BUCKETPREFIX: ${opt:bucket-prefix}
+
 resources:
  Resources:
    SampleBucket:
      Type: AWS::S3::Bucket
      Properties:
        BucketName: ${opt:bucket-prefix}-${self:provider.stage}-sls-testing-bucket
-#  Outputs:
-#     NewOutput:
-#       Description: "Description for the output"
-#       Value: "Some output value"
